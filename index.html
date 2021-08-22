@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <title>Konversi Suhu</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+  </head>
+  <body>
+   <div class="container ">
+      <div class="d-flex flex-column mt-5">
+        <div class="container">
+          <div class="container d-flex justify-content-end">
+            <div class="container col-md-6">
+              <div class="h5 mb-2" id="date-part"></div>
+              <div class="h5" id="time-part"></div>
+            </div>
+            <div class="container col-md-6">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ganti Warna Latar"
+                  id="warna"
+                />
+                <button class="btn btn-secondary" onclick="gantiWarna()">
+                  Ganti
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container text-center border border-2 rounded mt-1">
+          <h1>Konversi Suhu</h1>
+          <div class="container d-flex flex-row">
+            <div class="container col-md-6">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="option1"
+                onchange="convert()"
+              >
+                <option value="1">Celcius</option>
+                <option value="2">Fahrenheit</option>
+                <option value="3">Reamur</option>
+              </select>
+              <input
+                type="number"
+                class="form-control mt-3"
+                id="input1"
+                onkeyup="convert()"
+              />
+            </div>
+            <div class="container col-md-6">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="option2"
+                onchange="convert()"
+              >
+                <option value="1">Celcius</option>
+                <option value="2">Fahrenheit</option>
+                <option value="3">Reamur</option>
+              </select>
+              <input
+                type="number"
+                class="form-control mt-3"
+                id="hasil"
+                disabled
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-warning mt-3 mb-3 flex-end"
+            id="btnreset"
+            onclick="reset()"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        var interval = setInterval(function () {
+          var momentNow = moment();
+          $("#date-part").html(
+            momentNow.format("YYYY MMMM DD") +
+              " " +
+              momentNow.format("dddd").substring(0, 3).toUpperCase()
+          );
+          $("#time-part").html(momentNow.format("A hh:mm:ss"));
+        }, 100);
+      });
+
+      function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === "paste") {
+          key = event.clipboardData.getData("text/plain");
+        } else {
+          // Handle key press
+          var key = theEvent.keyCode || theEvent.which;
+          key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+          theEvent.returnValue = false;
+          if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+      }
+    </script>
+
+    <script src="javascript.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
